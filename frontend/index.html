@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All-In-One Calculator</title>
+    <meta name="theme-color" content="#07080c">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="ambient" aria-hidden="true">
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+        <span class="orb orb-3"></span>
+    </div>
+
+    <div class="calculator-container">
+        <div class="header">
+            <div class="brand">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M7 8h10M7 12h10M7 16h6"/></svg>
+                </span>
+                <div>
+                    <h1>All-In-One Calculator</h1>
+                    <p class="brand-subtitle">Basic · Scientific · Financial</p>
+                </div>
+            </div>
+            <div class="header-controls">
+                <div class="sound-control">
+                    <button id="soundToggle" class="icon-btn" title="Mute key sounds" aria-pressed="true">
+                        <svg class="icon-sound-on" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+                        <svg class="icon-sound-off" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m16 9 6 6M22 9l-6 6"/></svg>
+                    </button>
+                    <input type="range" id="volumeSlider" min="0" max="100" step="1" value="60" aria-label="Key sound volume">
+                </div>
+                <button id="themeToggle" class="icon-btn" title="Toggle theme">
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="app-body">
+            <aside class="history-panel">
+                <div class="history-header">
+                    <h3>History</h3>
+                    <div class="history-actions">
+                        <button class="icon-btn" id="clearHistory" title="Clear history">
+                            <svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></svg>
+                        </button>
+                        <button class="icon-btn" id="copyHistory" title="Copy history">
+                            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="history-list" id="historyList"></div>
+            </aside>
+
+            <div class="calc-main">
+        <div class="tabs">
+            <span class="tab-indicator" aria-hidden="true"></span>
+            <button class="tab-btn active" data-tab="basic">Basic</button>
+            <button class="tab-btn" data-tab="scientific">Scientific</button>
+            <button class="tab-btn" data-tab="financial">Financial</button>
+        </div>
+
+        <div class="display-section">
+            <div class="history-display" id="historyDisplay"></div>
+            <div class="main-display" id="mainDisplay">0</div>
+        </div>
+
+        <!-- Basic Calculator -->
+        <div class="calculator-content tab-content active" id="basic">
+            <div class="calculator">
+                <div class="button-grid">
+                    <button class="btn btn-function" data-action="clear">C</button>
+                    <button class="btn btn-function" data-action="backspace">⌫</button>
+                    <button class="btn btn-function" data-action="percent">%</button>
+                    <button class="btn btn-operator" data-action="divide">÷</button>
+                    
+                    <button class="btn btn-number" data-value="7">7</button>
+                    <button class="btn btn-number" data-value="8">8</button>
+                    <button class="btn btn-number" data-value="9">9</button>
+                    <button class="btn btn-operator" data-action="multiply">×</button>
+                    
+                    <button class="btn btn-number" data-value="4">4</button>
+                    <button class="btn btn-number" data-value="5">5</button>
+                    <button class="btn btn-number" data-value="6">6</button>
+                    <button class="btn btn-operator" data-action="subtract">−</button>
+                    
+                    <button class="btn btn-number" data-value="1">1</button>
+                    <button class="btn btn-number" data-value="2">2</button>
+                    <button class="btn btn-number" data-value="3">3</button>
+                    <button class="btn btn-operator" data-action="add">+</button>
+                    
+                    <button class="btn btn-number" data-value="0">0</button>
+                    <button class="btn btn-number" data-action="decimal">.</button>
+                    <button class="btn btn-function" data-action="negate">±</button>
+                    <button class="btn btn-equals" data-action="equals">=</button>
+                </div>
+            </div>
+            
+            <div class="memory-section">
+                <button class="btn btn-memory" data-action="mc">MC</button>
+                <button class="btn btn-memory" data-action="mr">MR</button>
+                <button class="btn btn-memory" data-action="m-plus">M+</button>
+                <button class="btn btn-memory" data-action="m-minus">M-</button>
+            </div>
+        </div>
+
+        <!-- Scientific Calculator -->
+        <div class="calculator-content tab-content" id="scientific">
+            <div class="angle-toggle">
+                <button class="angle-btn active" data-angle="deg">DEG</button>
+                <button class="angle-btn" data-angle="rad">RAD</button>
+            </div>
+            <div class="calculator scientific">
+                <div class="button-grid scientific-grid">
+                    <button class="btn btn-scientific" data-action="sin">sin</button>
+                    <button class="btn btn-scientific" data-action="cos">cos</button>
+                    <button class="btn btn-scientific" data-action="tan">tan</button>
+                    <button class="btn btn-function" data-action="clear">C</button>
+                    <button class="btn btn-function" data-action="backspace">⌫</button>
+
+                    <button class="btn btn-scientific" data-action="asin">sin⁻¹</button>
+                    <button class="btn btn-scientific" data-action="acos">cos⁻¹</button>
+                    <button class="btn btn-scientific" data-action="atan">tan⁻¹</button>
+                    <button class="btn btn-scientific" data-action="open-paren">(</button>
+                    <button class="btn btn-scientific" data-action="close-paren">)</button>
+
+                    <button class="btn btn-scientific" data-action="log">log</button>
+                    <button class="btn btn-scientific" data-action="ln">ln</button>
+                    <button class="btn btn-scientific" data-action="sqrt">√</button>
+                    <button class="btn btn-scientific" data-action="power">xʸ</button>
+                    <button class="btn btn-operator" data-action="divide">÷</button>
+
+                    <button class="btn btn-scientific" data-action="factorial">n!</button>
+                    <button class="btn btn-number" data-value="7">7</button>
+                    <button class="btn btn-number" data-value="8">8</button>
+                    <button class="btn btn-number" data-value="9">9</button>
+                    <button class="btn btn-operator" data-action="multiply">×</button>
+
+                    <button class="btn btn-scientific" data-action="pi">π</button>
+                    <button class="btn btn-number" data-value="4">4</button>
+                    <button class="btn btn-number" data-value="5">5</button>
+                    <button class="btn btn-number" data-value="6">6</button>
+                    <button class="btn btn-operator" data-action="subtract">−</button>
+
+                    <button class="btn btn-scientific" data-action="e">e</button>
+                    <button class="btn btn-number" data-value="1">1</button>
+                    <button class="btn btn-number" data-value="2">2</button>
+                    <button class="btn btn-number" data-value="3">3</button>
+                    <button class="btn btn-operator" data-action="add">+</button>
+
+                    <button class="btn btn-scientific" data-action="ans">ANS</button>
+                    <button class="btn btn-scientific" data-action="exp">EXP</button>
+                    <button class="btn btn-number" data-value="0">0</button>
+                    <button class="btn btn-number" data-action="decimal">.</button>
+                    <button class="btn btn-equals" data-action="equals">=</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial Calculator -->
+        <div class="calculator-content tab-content" id="financial">
+            <div class="financial-calculator">
+                <div class="financial-inputs">
+                    <div class="input-group">
+                        <label for="n">N (Periods)</label>
+                        <input type="number" id="n" step="1" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="iy">I/Y (Interest Rate %)</label>
+                        <input type="number" id="iy" step="0.01" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="pv">PV (Present Value)</label>
+                        <input type="number" id="pv" step="0.01" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="pmt">PMT (Payment)</label>
+                        <input type="number" id="pmt" step="0.01" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="fv">FV (Future Value)</label>
+                        <input type="number" id="fv" step="0.01" placeholder="0">
+                    </div>
+                </div>
+                
+                <p class="financial-hint">N in months · I/Y annual % · monthly compounding · money paid out is negative</p>
+
+                <div class="financial-buttons">
+                    <button class="btn btn-financial" data-calc="solve-n">Solve N</button>
+                    <button class="btn btn-financial" data-calc="solve-iy">Solve I/Y</button>
+                    <button class="btn btn-financial" data-calc="solve-pv">Solve PV</button>
+                    <button class="btn btn-financial" data-calc="solve-pmt">Solve PMT</button>
+                    <button class="btn btn-financial" data-calc="solve-fv">Solve FV</button>
+                    <button class="btn btn-financial" data-calc="clear-financial">Clear</button>
+                </div>
+                
+                <div class="financial-result" id="financialResult"></div>
+                
+                <div class="amortization-section">
+                    <h3>Amortization Schedule</h3>
+                    <button class="btn btn-financial" id="generateAmortization">Generate Schedule</button>
+                    <div class="amortization-table" id="amortizationTable"></div>
+                </div>
+            </div>
+        </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="sound.js"></script>
+    <script src="api.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
